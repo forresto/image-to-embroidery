@@ -1,4 +1,6 @@
 <script lang="ts">
+  import debounce from "lodash/debounce";
+
   import ImageSelect from "./view/ImageSelect.svelte";
   import DragCanvas from "./view/DragCanvas.svelte";
   import PathLayers from "./view/PathLayers.svelte";
@@ -62,16 +64,18 @@
     URL.revokeObjectURL(url);
   }
 
+  let autodraw = debounce(draw, 100);
   $: {
-    if (auto && paperCanvas && $rasterCanvas) {
-      paperProject = zigzag(
-        paperCanvas,
-        $rasterCanvas,
-        $layers,
-        $scale,
-        advance,
-        zig
-      );
+    if (
+      auto &&
+      paperCanvas &&
+      $rasterCanvas &&
+      $layers.length &&
+      $scale &&
+      advance &&
+      zig
+    ) {
+      autodraw();
     }
   }
 </script>

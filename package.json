@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "svelte": "^3.46.4",
-    "paper": "^0.12.15"
+    "paper": "^0.12.15",
+    "lodash": "^4.17.21"
   }
 }
