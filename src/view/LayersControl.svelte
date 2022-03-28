@@ -29,7 +29,7 @@
     {#each $layers as { x, y, stroke }, i}
       <li>
         <input class="swatch" type="color" bind:value={stroke} />
-        <label class="select-position">
+        <label class="select-position" title="Select layer {i}.">
           <input
             type="radio"
             checked={$selectedLayer === i}

@@ -1,4 +1,11 @@
-import paper, { Color, Point, Size, Path, Raster } from "paper/dist/paper-core";
+import paper, {
+  Color,
+  Point,
+  Size,
+  Path,
+  Raster,
+  Rectangle,
+} from "paper/dist/paper-core";
 import { colorCloseness } from "./color";
 import type { Layer } from "../stores";
 
@@ -23,8 +30,11 @@ export function zigzag(
   const rasterProject = new paper.Project(size);
   rasterProject.activate();
   const raster = new Raster(rasterCanvas);
-  raster.position = new Point(width * 0.5, height * 0.5);
+  raster.position = rasterProject.view.center;
   raster.visible = false;
+  // Blur?
+  // raster.canvas.getContext("2d").filter = "blur(2px)";
+  // raster.drawImage(raster.canvas, new Point(0, 0));
 
   const paperProject = new paper.Project(paperCanvas);
   paperProject.activate();
@@ -71,6 +81,7 @@ export function zigzag(
           pathOut.add(point1.add(zz));
         } else {
           pathOut.add(point1);
+          // TODO? jump stitch
         }
       }
 
@@ -86,6 +97,7 @@ export function zigzag(
           pathOut.add(point2.add(zz));
         } else {
           pathOut.add(point2);
+          // jump stitch?
         }
       }
 

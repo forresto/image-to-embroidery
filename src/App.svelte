@@ -80,10 +80,8 @@
   }
 </script>
 
-<h1>image-to-embroidery 🖼→🪡</h1>
-<p>collab between some folks...</p>
 <main>
-  <div class="v-box">
+  <section>
     <h2>Select image</h2>
     <ImageSelect label="Image to stitch" bind:url={$imageSourceURL} />
     <div>
@@ -117,8 +115,10 @@
       <input type="checkbox" bind:checked={auto} />
       Auto draw
     </label>
-  </div>
-  <div class="v-box">
+    <button on:click={draw} disabled={auto}>Draw</button>
+    <button on:click={download}>Download SVG</button>
+  </section>
+  <section>
     <h2>Path layers</h2>
     <ImageSelect
       label="SVG for base paths and colors"
@@ -133,8 +133,10 @@
       </label>
     </div>
     <LayersControl />
-  </div>
-  <div class="v-box">
+    <p class="right-note">👆 Select a layer here.</p>
+    <p class="right-note">Drag to reposition here. 👉</p>
+  </section>
+  <section>
     <h2>Base paths</h2>
     <div class="stack" style="background-color: {bgColor};">
       <img
@@ -152,21 +154,30 @@
         <DragCanvas width={$width} height={$height} />
       </div>
     </div>
-  </div>
-  <div class="v-box">
+  </section>
+  <section>
     <h2>Output</h2>
-    <canvas bind:this={paperCanvas} width={$width} height={$height} />
-    <button on:click={draw}>Draw</button>
-    <button on:click={download}>Download SVG</button>
-  </div>
+    <canvas
+      bind:this={paperCanvas}
+      width={$width}
+      height={$height}
+      style="background-color: {bgColor};"
+    />
+  </section>
 </main>
 
 <style>
   :root {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 1.1em;
+    line-height: 1.5;
   }
 
+  :global(body) {
+    margin: 0;
+    padding: 16px;
+  }
   main {
     margin: 0 auto;
     display: flex;
@@ -192,12 +203,19 @@
   label {
     display: block;
   }
-  .v-box {
+  section {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
+    border: 1px dotted #ccc;
+    padding: 16px;
   }
   h2 {
+    margin: 0;
+  }
+  .right-note {
+    font-size: 90%;
+    text-align: right;
     margin: 0;
   }
 </style>
